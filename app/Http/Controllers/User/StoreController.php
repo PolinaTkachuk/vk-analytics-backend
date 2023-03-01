@@ -35,7 +35,7 @@ class StoreController extends Controller
 
        //Get a token based on a given user's id.
        $token = auth()->tokenById($user->id);
-       return response(['access_token'=> $token]);
+       return response(['access_token'=> $token, 'id'=>$user->id]);
 
 
 
@@ -65,7 +65,6 @@ class StoreController extends Controller
             'password'=>$request->input('user.password')];
         //$credentials = request(['user.name']);
 
-       // dd($credentials);
         // Генерируем токен для пользователя, если учетные данные действительны
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -87,9 +86,15 @@ class StoreController extends Controller
             return $token;//('Token NOT provided!');
         }
 
-        return $this->respondWithToken($token);
+        $id=DB::table('users')->where('email',$request->user()->email)->get('id')->toArray();
+        //dd($id[0]->id);
+        return $this->respondWithToken($token, $id[0]->id);
     }
 
+
+    public function profile(Request $request){
+
+    }
 
     /*
     public function __construct()
@@ -113,16 +118,18 @@ class StoreController extends Controller
     public function refresh()
     {
         dd('11111111111');
+        //нужно добавить id в метод respondWithToken
         return $this->respondWithToken(auth()->refresh());
     }
 
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $id)
     {
         return response()->json([
             'access_token' => $token,
+            'id' => $id,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
         ]);
     }
 }

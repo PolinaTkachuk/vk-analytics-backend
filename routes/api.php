@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\StoreController;
 use App\Http\Controllers\AuthController;
+use App\Models\User;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -15,6 +16,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::post('/signup', [StoreController::class, 'signup']);
 
 
+Route::middleware('api')->get('/main/profile', function (Request $request) {
+   // dd($request);
+   // dd($request->query('id'));
+   // dd(User::find($request));
+    //dd(DB::table('users')->where('id', ));
+
+    return User::find($request->query('id'));
+});
 Route::group(['middleware' => 'api'] , function () {
     Route::post('/signup', [StoreController::class, 'signup']);
     Route::post('refresh', [StoreController::class,'refresh']);
