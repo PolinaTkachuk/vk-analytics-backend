@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'vk' => [
+        'method' => env('VK_URL_METHOD', 'https://api.vk.com/method/'),
+        'token' => env('VK_ACCESS_TOKEN'),
+        'version' => env('VK_VERSION_API', '5.131')
+    ]
 ];

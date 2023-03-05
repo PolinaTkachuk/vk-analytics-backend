@@ -92,8 +92,9 @@ class StoreController extends Controller
     }
 
 
-    public function profile(Request $request){
+    public function saveProfile(Request $request){
 
+       return 1;
     }
 
     /*
