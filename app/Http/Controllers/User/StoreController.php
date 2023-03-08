@@ -78,9 +78,6 @@ class StoreController extends Controller
         // Get the token
        // $token_old = auth()->login($user);
 
-        //dd($token_old);
-        //dd($token);
-        //dd(DB::select('show create table users'),  DB::table('users')->find(88));
         if(!$token){
             $token = auth()->refresh();
             return $token;//('Token NOT provided!');

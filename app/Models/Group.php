@@ -14,6 +14,8 @@ class Group extends Model
         'name',
         'url',
         'avatar',
-        'sync_interval_in_hours'
+        'description',
+        'status',
+        'sync_interval_in_hours',
     ];
 }

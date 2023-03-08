@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('url');
             $table->string('avatar')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('status')->nullable();
             $table->float('sync_interval_in_hours')->nullable();
             $table->timestamps();
