@@ -19,13 +19,14 @@ class VkGroupController extends Controller
     public function mainInfoAboutGroups(Request $request,vkMethodAction $vkMethodAction,VkDataProcessingAction $VkDataProcessingAction)
     {
 
-
         $resp=$vkMethodAction->getNameUrlAndIdGroup($request);
         $VkDataProcessingAction->insertNameUrlAndIdGroup($resp);
         $resp_2=$vkMethodAction->getAvatarDescriptionAndstatusGroup($request);
         $VkDataProcessingAction->insertAvatarDescriptionAndstatusGroup($resp_2);
 
-        $resp=$vkMethodAction->getInfoMembersGroup($request);
+        $resp_3=$vkMethodAction->getItemsWithOffsetMembersGroup($request, 0);
+
+        $resp_4=$vkMethodAction->getInfoMembersGroup($request, $resp_3);
         return response()->json(new GroupResource( (Group::where('url',$request->url)->get())[0] ));
 
         //$id=Group::where('email',$request->user()->email)->get('id')->toArray();
